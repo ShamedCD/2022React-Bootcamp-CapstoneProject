@@ -1,0 +1,12 @@
+{
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.maxTokenizationLineLength": 2500
+    },
+    "[javascriptreact]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.maxTokenizationLineLength": 2500
+    },
+}
