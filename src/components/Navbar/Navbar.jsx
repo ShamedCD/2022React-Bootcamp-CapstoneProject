@@ -12,10 +12,15 @@ import {
   SearchInput,
 } from "./Navbar.style";
 
-const Navbar = () => {
+const Navbar = ({ stateHandler }) => {
+  function changePage(e) {
+    e.preventDefault();
+
+    stateHandler("home");
+  }
   return (
     <NavContainer>
-      <Logo href="">
+      <Logo href="" onClick={changePage}>
         React<span>Furniture</span>
       </Logo>
       <Menu>
