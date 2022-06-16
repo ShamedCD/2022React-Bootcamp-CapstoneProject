@@ -24,7 +24,7 @@ function App() {
           stateHandler={setPage}
         />
       ) : (
-        <Products />
+        <Products products={featuredProducts.results} />
       )}
       <Footer />
     </>

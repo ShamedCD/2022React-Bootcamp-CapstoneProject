@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+export const Button = styled.button`
+  background-color: rgb(246, 107, 14);
+  padding: 15px 60px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  margin: 10px 0px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: white;
+  width: auto;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
