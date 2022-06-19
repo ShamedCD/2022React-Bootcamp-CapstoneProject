@@ -1,17 +1,24 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  background-color: rgb(246, 107, 14);
+  background-color: black;
   padding: 15px 60px;
   font-weight: bold;
   border-radius: 5px;
-  border: none;
+  border: 2px solid black;
   margin: 10px 0px;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1rem;
   color: white;
   width: auto;
+  text-decoration: none;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: transparent;
+    color: black;
+  }
 `;
 
 export const Container = styled.div`
@@ -20,6 +27,7 @@ export const Container = styled.div`
   justify-content: center;
   margin: 3rem 5rem;
   max-width: 100%;
+  min-height: 95vh;
 
   @media (max-width: 576px) {
     margin: 7rem 2rem;

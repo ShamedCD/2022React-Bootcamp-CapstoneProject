@@ -1,19 +1,15 @@
 import React from "react";
+import { Container } from "./Pagination.style";
 
 const Pagination = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "10px 60px",
-        background: "white",
-      }}
-    >
-      Pagination
-    </div>
+    <Container>
+      <button className="pageCard">{`<`}</button>
+      <button className="pageCard active">1</button>
+      <button className="pageCard">2</button>
+      <button className="pageCard">3</button>
+      <button className="pageCard">{`>`}</button>
+    </Container>
   );
 };
 
