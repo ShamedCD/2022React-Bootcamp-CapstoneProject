@@ -40,6 +40,7 @@ export const MenuItem = styled.a`
 
 export const NavContainer = styled.div`
   padding: 0 2rem;
+  min-height: 65px;
   display: flex;
   justify-content: space-between;
   align-items: center;
