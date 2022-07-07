@@ -8,7 +8,7 @@ import {
   CardTitleContainer,
 } from "./Card.style";
 
-const Card = ({ product }) => {
+const Card = ({ product, handleViewDetails }) => {
   const { data } = product;
 
   return (
@@ -16,10 +16,13 @@ const Card = ({ product }) => {
       <CardImage alt={data.mainimage.alt} src={data.mainimage.url} />
       <CardTitleContainer>
         <h4>{data.name}</h4>
+        <sub>{data.category.slug.toUpperCase()}</sub>
       </CardTitleContainer>
-      <CardContent>$ {data.price} USD</CardContent>
+      <CardContent>${data.price} USD</CardContent>
       <ButtonContainer>
-        <Button data-key={product.id}>View details</Button>
+        <Button data-key={product.id} onClick={handleViewDetails}>
+          View details
+        </Button>
         <Button isCart={true}>Add to cart</Button>
       </ButtonContainer>
     </CardContainer>

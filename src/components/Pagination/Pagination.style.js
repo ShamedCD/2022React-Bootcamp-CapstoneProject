@@ -6,6 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   width: 100%;
   margin: 1rem 0;
+  flex-wrap: wrap;
   .pageCard {
     height: 50px;
     padding: 0 20px;
@@ -27,10 +28,19 @@ export const Container = styled.div`
     color: #fff;
   }
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (min-width: 320px) and (max-width: 576px) {
     .pageCard {
-      height: 20px;
+      height: 30px;
       padding: 0 10px;
+      margin: 5px;
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 1216px) {
+    .pageCard {
+      height: 40px;
+      padding: 0 15px;
+      margin: 5px;
     }
   }
 `;

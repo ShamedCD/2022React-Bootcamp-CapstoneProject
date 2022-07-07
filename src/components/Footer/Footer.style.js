@@ -10,6 +10,7 @@ export const Container = styled.footer`
   bottom: 0;
   left: 0;
   right: 0;
+  margin-top: auto;
 
   @media (max-width: 1216px) {
     justify-content: center;

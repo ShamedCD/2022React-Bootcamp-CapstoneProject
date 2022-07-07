@@ -1,7 +1,27 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Logo = styled.a`
+export const Button = styled.button`
+  background-color: black;
+  border-radius: 1rem;
+  border: 2px solid black;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: white;
+  width: auto;
+  text-decoration: none;
+  transition: all 0.3s ease-in;
+  display: ${(props) => (props.isActive ? "flex" : "none")};
+
+  &:hover {
+    background: transparent;
+    color: black;
+  }
+`;
+
+export const Logo = styled(Link)`
   padding: 1rem 0;
   color: black;
   text-decoration: none;
@@ -24,7 +44,7 @@ export const Menu = styled.div`
   }
 `;
 
-export const MenuItem = styled.a`
+export const MenuItem = styled(Link)`
   padding: 1rem 2rem;
   cursor: pointer;
   text-align: center;
@@ -43,7 +63,6 @@ export const NavContainer = styled.div`
   min-height: 65px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   position: fixed;
   background: white;
@@ -78,6 +97,7 @@ export const SearchInput = styled.input`
   border: none;
   line-height: 1;
   width: 100%;
+  margin: 5px;
 
   &:focus,
   &:active {

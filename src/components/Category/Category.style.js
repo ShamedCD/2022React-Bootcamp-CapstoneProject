@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ export const Image = styled.img`
   border-radius: 1rem 1rem 0 0;
 `;
 
-export const Title = styled.p`
+export const Title = styled(Link)`
   position: relative;
   text-decoration: none;
   color: #333;
