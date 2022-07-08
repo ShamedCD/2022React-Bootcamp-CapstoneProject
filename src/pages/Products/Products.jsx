@@ -21,12 +21,17 @@ import { useProducts } from "../../utils/hooks/useProducts";
 const Products = () => {
   const [items, setItems] = useState([]);
   const [filters, setFilters] = useState({});
+  const [reqFilters, setReqFilters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [filtersCleared, setFiltersCleared] = useState(true);
 
   const [searchParams] = useSearchParams();
 
-  const { data: products, isLoading: pIsLoading } = useProducts(currentPage);
+  const { data: products, isLoading: pIsLoading } = useProducts({
+    currentPage,
+    reqFilters,
+  });
   const { data: categories, isLoading: cIsLoading } = useFeaturedCategories();
 
   // Initial useEffect to load the products
@@ -50,7 +55,7 @@ const Products = () => {
       return filters;
     }
 
-    if (!cIsLoading && !pIsLoading) {
+    if (!cIsLoading && !pIsLoading && reqFilters.length === 0) {
       const filterItems = getAllCategories();
       const searchParam = searchParams.get("category");
 
@@ -63,7 +68,7 @@ const Products = () => {
     }
 
     return () => abortController.abort();
-  }, [categories, cIsLoading, pIsLoading, searchParams]);
+  }, [categories, cIsLoading, pIsLoading, searchParams, products, reqFilters]);
 
   useEffect(() => {
     if (!cIsLoading && !pIsLoading) {
@@ -93,6 +98,7 @@ const Products = () => {
       }
 
       setItems(filteredProducts);
+      setTotalPages(products.total_pages);
     }
   }, [
     filters,
@@ -102,6 +108,7 @@ const Products = () => {
     searchParams,
     filtersCleared,
     currentPage,
+    totalPages,
   ]);
 
   // Function that handle the filters
@@ -111,20 +118,19 @@ const Products = () => {
     const { key } = e.target.dataset;
     filters[key].active = !filters[key].active;
     setFilters({ ...filters });
+
+    const tmpReqFilters = [];
+    Object.keys(filters).forEach((key) => {
+      if (filters[key].active) {
+        tmpReqFilters.push(filters[key].key);
+      }
+    });
+    setReqFilters(tmpReqFilters);
   }
 
   function clearFilters(e) {
     e.preventDefault();
-
-    const clearFilters = {};
-    setFiltersCleared(true);
-    Object.keys(filters).forEach((key) => {
-      filters[key].active = false;
-      const element = Object.assign({}, { ...filters[key] });
-      clearFilters[key] = element;
-    });
-
-    setFilters({ ...clearFilters });
+    window.location.reload(false);
   }
 
   return (
@@ -161,8 +167,7 @@ const Products = () => {
             ))}
             <Pagination
               currentPage={currentPage}
-              pageSize={products.results_per_page}
-              totalPages={products.total_page}
+              totalPages={totalPages}
               setCurrentPage={setCurrentPage}
             />
           </ProductsContainer>

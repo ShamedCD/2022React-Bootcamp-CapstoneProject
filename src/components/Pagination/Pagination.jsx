@@ -4,10 +4,10 @@ import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
 
 import { Container } from "./Pagination.style";
 
-const Pagination = ({ currentPage, pageSize, setCurrentPage }) => {
+const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
   const buildPageButtons = () => {
     let result = [];
-    for (let i = 1; i < pageSize + 1; i++) {
+    for (let i = 1; i < totalPages + 1; i++) {
       result.push(
         <button
           key={i}
@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, pageSize, setCurrentPage }) => {
     return result;
   };
 
-  return pageSize > 1 ? (
+  return totalPages > 1 ? (
     <Container>
       <button
         className="pageCard"
@@ -38,11 +38,11 @@ const Pagination = ({ currentPage, pageSize, setCurrentPage }) => {
       <button
         className="pageCard"
         onClick={() => {
-          if (currentPage < pageSize) {
+          if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
           }
         }}
-        disabled={currentPage === pageSize}
+        disabled={currentPage === totalPages}
       >
         <FontAwesomeIcon icon={faGreaterThan} />
       </button>
