@@ -9,6 +9,9 @@ const Global = createGlobalStyle`
 
   body {
     background: rgb(205, 222, 255);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 `;
 

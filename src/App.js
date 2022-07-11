@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import Global from "./global";
+import { Route, Routes } from "react-router-dom";
 
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Products from "./pages/Products/Products";
 
-import featuredProducts from "./mocks/en-us/featured-products.json";
-import banners from "./mocks/en-us/featured-banners.json";
-import categories from "./mocks/en-us/product-categories.json";
+import Product from "./pages/Product/Product";
+import Search from "./pages/Search/Search";
 
-function App() {
-  const [page, setPage] = useState("home");
+const App = () => {
   return (
     <>
       <Global />
-      <Navbar stateHandler={setPage} />
-      {page === "home" ? (
-        <Home
-          categories={categories.results}
-          products={featuredProducts.results}
-          banners={banners.results}
-          stateHandler={setPage}
+      <Navbar />
+      <Routes>
+        <Route index path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route
+          path="/products?category={categorySlug}"
+          element={<Products />}
         />
-      ) : (
-        <Products products={featuredProducts.results} />
-      )}
+        <Route path="/product/:idProduct" element={<Product />} />
+        <Route path="/search" element={<Search />} />
+      </Routes>
       <Footer />
     </>
   );
-}
+};
 
 export default App;

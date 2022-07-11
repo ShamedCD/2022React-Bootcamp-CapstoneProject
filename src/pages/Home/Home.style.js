@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const Button = styled.button`
+export const Button = styled(Link)`
   background-color: black;
   padding: 15px 60px;
   font-weight: bold;

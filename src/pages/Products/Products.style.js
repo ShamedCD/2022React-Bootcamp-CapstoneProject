@@ -7,6 +7,8 @@ export const Container = styled.div`
   max-width: 100%;
   padding-top: 65px;
   min-height: 95vh;
+  /* align-items: center; */
+  justify-content: center;
 
   @media (max-width: 576px) {
     padding-top: 100px;
@@ -69,6 +71,7 @@ export const Sidebar = styled.aside`
   max-width: 25%;
   background: white;
   flex-direction: column;
+  height: auto;
 
   @media (max-width: 576px) {
     max-width: 30%;
