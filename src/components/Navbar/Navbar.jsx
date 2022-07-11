@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Button,
   Logo,
   Menu,
-  MenuItem,
   NavContainer,
   SearchContainer,
   SearchIcon,
   SearchInput,
 } from "./Navbar.style";
+import Cart from "../Cart/Cart";
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,9 +46,7 @@ const Navbar = () => {
             <SearchIcon icon={faSearch} />
           </Button>
         </SearchContainer>
-        <MenuItem to="/">
-          <FontAwesomeIcon icon={faCartShopping} />
-        </MenuItem>
+        <Cart />
       </Menu>
     </NavContainer>
   );

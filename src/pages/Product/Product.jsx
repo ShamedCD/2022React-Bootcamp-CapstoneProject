@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { Navigation, FreeMode, Thumbs } from "swiper";
+import { SwiperSlide } from "swiper/react/swiper-react";
 
 import {
   Button,
@@ -24,9 +27,7 @@ import {
 import { Loader } from "../../components/Loader.style";
 
 import { useProduct } from "../../utils/hooks/useProduct";
-
-import { Navigation, FreeMode, Thumbs } from "swiper";
-import { SwiperSlide } from "swiper/react/swiper-react";
+import { addToCart } from "../../utils/slices/cartSlice";
 
 import "swiper/swiper.scss";
 import "swiper/modules/free-mode/free-mode.scss";
@@ -34,24 +35,46 @@ import "swiper/modules/navigation/navigation.scss";
 import "swiper/modules/thumbs/thumbs.scss";
 
 const Product = () => {
-  const { idProduct } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [counter, setCounter] = useState(0);
+
+  const { idProduct } = useParams();
+  const dispatch = useDispatch();
+
   const { data: product, isLoading } = useProduct(idProduct);
 
-  const renderTableHeader = (specs) => {
-    return specs.map((spec) => (
-      <THeader key={spec.spec_name}>{spec.spec_name}</THeader>
-    ));
+  const handleAddToCart = (product, e) => {
+    e.preventDefault();
+
+    dispatch(addToCart({ product, counter }));
+  };
+
+  const getImageKey = (url) => {
+    const key = url.match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/gs);
+    return key;
+  };
+
+  const increase = () => {
+    if (counter < product.results[0].data.stock) {
+      setCounter((count) => count + 1);
+    }
+  };
+
+  const decrease = () => {
+    if (counter > 0) {
+      setCounter((count) => count - 1);
+    }
   };
 
   const renderTableBody = (specs) => {
     return specs.map((spec) => <TD key={spec.spec_name}>{spec.spec_value}</TD>);
   };
 
-  function getImageKey(url) {
-    const key = url.match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/gs);
-    return key;
-  }
+  const renderTableHeader = (specs) => {
+    return specs.map((spec) => (
+      <THeader key={spec.spec_name}>{spec.spec_name}</THeader>
+    ));
+  };
 
   return (
     <Container>
@@ -127,24 +150,41 @@ const Product = () => {
               </Table>
             </Specs>
             <p className="price">${product.results[0].data.price} USD</p>
+            <p className="stock">Stock: {product.results[0].data.stock}</p>
             <ButtonContainer>
               <Counter>
-                <button className="counter-btn left">
+                <button
+                  className="counter-btn left"
+                  onClick={increase}
+                  disabled={counter === product.results[0].data.stock}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
                 <input
                   type="number"
-                  value={0}
+                  value={counter}
                   onChange={(e) => {
-                    console.log(e.target.value);
+                    if (e.target.value > 0) {
+                      setCounter(e.target.value);
+                    }
                   }}
                   className="counter-field"
                 />
-                <button className="counter-btn right">
+                <button className="counter-btn right" onClick={decrease}>
                   <FontAwesomeIcon icon={faMinus} />
                 </button>
               </Counter>
-              <Button isCart={true}>Add to cart</Button>
+              <Button
+                isCart={true}
+                disabled={
+                  product.results[0].data.stock === 0 || counter === 0
+                    ? true
+                    : false
+                }
+                onClick={handleAddToCart.bind(this, product.results[0])}
+              >
+                Add to cart
+              </Button>
             </ButtonContainer>
           </Row>
         </>

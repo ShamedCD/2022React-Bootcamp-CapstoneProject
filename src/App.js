@@ -3,12 +3,14 @@ import Global from "./global";
 import { Route, Routes } from "react-router-dom";
 
 import Footer from "./components/Footer/Footer";
-import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import Products from "./pages/Products/Products";
 
+import Checkout from "./pages/Checkout/Checkout";
+import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
+import Products from "./pages/Products/Products";
 import Search from "./pages/Search/Search";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         />
         <Route path="/product/:idProduct" element={<Product />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
     </>

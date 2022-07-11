@@ -31,6 +31,12 @@ export const Button = styled.button`
     color: ${(props) =>
       props.isCart && props.isCart === true ? "rgb(255, 89, 89)" : "black"};
   }
+
+  &:disabled {
+    background-color: rgb(245, 128, 128);
+    color: white;
+    border: none;
+  }
 `;
 
 export const Container = styled.div`
@@ -49,6 +55,16 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     padding: 10px 0;
+    font-weight: bold;
+  }
+
+  .stock {
+    font-size: 0.8rem;
+    color: gray;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
   }
 
