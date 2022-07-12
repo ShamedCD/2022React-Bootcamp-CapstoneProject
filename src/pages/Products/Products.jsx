@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Card from "../../components/Card/Card";
 import Pagination from "../../components/Pagination/Pagination";
@@ -17,6 +18,7 @@ import { Loader } from "../../components/Loader.style";
 
 import { useFeaturedCategories } from "../../utils/hooks/useFeaturedCategories";
 import { useProducts } from "../../utils/hooks/useProducts";
+import { addToCart } from "../../utils/slices/cartSlice";
 
 const Products = () => {
   const [items, setItems] = useState([]);
@@ -28,11 +30,26 @@ const Products = () => {
 
   const [searchParams] = useSearchParams();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data: products, isLoading: pIsLoading } = useProducts({
     currentPage,
     reqFilters,
   });
   const { data: categories, isLoading: cIsLoading } = useFeaturedCategories();
+
+  const handleViewDetails = (e) => {
+    e.preventDefault();
+    const { key } = e.target.dataset;
+    navigate(`/product/${key}`, { replace: true });
+  };
+
+  const handleAddToCart = (product, e) => {
+    e.preventDefault();
+
+    dispatch(addToCart({ product }));
+  };
 
   // Initial useEffect to load the products
   useEffect(() => {
@@ -163,7 +180,12 @@ const Products = () => {
           <ProductsContainer>
             <Title>All products</Title>
             {items.map((product) => (
-              <Card key={product.id} product={product} />
+              <Card
+                key={product.id}
+                product={product}
+                handleViewDetails={handleViewDetails}
+                handleAddToCart={handleAddToCart.bind(this, product)}
+              />
             ))}
             <Pagination
               currentPage={currentPage}

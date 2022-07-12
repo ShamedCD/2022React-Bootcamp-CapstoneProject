@@ -8,7 +8,7 @@ import {
   CardTitleContainer,
 } from "./Card.style";
 
-const Card = ({ product, handleViewDetails }) => {
+const Card = ({ product, handleViewDetails, handleAddToCart }) => {
   const { data } = product;
 
   return (
@@ -23,7 +23,9 @@ const Card = ({ product, handleViewDetails }) => {
         <Button data-key={product.id} onClick={handleViewDetails}>
           View details
         </Button>
-        <Button isCart={true}>Add to cart</Button>
+        <Button isCart={true} onClick={handleAddToCart}>
+          Add to cart
+        </Button>
       </ButtonContainer>
     </CardContainer>
   );

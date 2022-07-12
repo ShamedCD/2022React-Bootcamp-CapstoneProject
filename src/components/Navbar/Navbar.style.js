@@ -44,20 +44,6 @@ export const Menu = styled.div`
   }
 `;
 
-export const MenuItem = styled(Link)`
-  padding: 1rem 2rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  transition: all 0.3s ease-in;
-  font-size: 0.9rem;
-
-  &:hover {
-    color: rgb(103, 111, 163);
-  }
-`;
-
 export const NavContainer = styled.div`
   padding: 0 2rem;
   min-height: 65px;

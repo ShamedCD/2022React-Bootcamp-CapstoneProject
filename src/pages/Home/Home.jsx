@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Card from "../../components/Card/Card";
 import Category from "../../components/Category/Category";
@@ -18,18 +19,27 @@ import { Button, Container, ProductsContainer, Title } from "./Home.style";
 import { useFeaturedBanners } from "../../utils/hooks/useFeaturedBanners";
 import { useFeaturedProducts } from "../../utils/hooks/useFeaturedProducts";
 import { useFeaturedCategories } from "../../utils/hooks/useFeaturedCategories";
+import { addToCart } from "../../utils/slices/cartSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data: banners, isLoading: bIsLoading } = useFeaturedBanners();
   const { data: products, isLoading: pIsLoading } = useFeaturedProducts();
   const { data: categories, isLoading: cIsLoading } = useFeaturedCategories();
-  const navigate = useNavigate();
 
-  function handleViewDetails(e) {
+  const handleViewDetails = (e) => {
     e.preventDefault();
     const { key } = e.target.dataset;
     navigate(`/product/${key}`, { replace: true });
-  }
+  };
+
+  const handleAddToCart = (product, e) => {
+    e.preventDefault();
+
+    dispatch(addToCart({ product }));
+  };
 
   return (
     <Container>
@@ -97,6 +107,7 @@ const Home = () => {
                 key={product.id}
                 product={product}
                 handleViewDetails={handleViewDetails}
+                handleAddToCart={handleAddToCart.bind(this, product)}
               />
             ))}
           </ProductsContainer>
